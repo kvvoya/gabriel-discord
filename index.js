@@ -1,12 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
-const { config } = require('dotenv');
-
-config();
-
-const { BOT_TOKEN, SINNER_STICKER_NAME, GUARD_CHANNEL_ID, REMOVE_SINNER_MESSAGE, BAN_SINNER } = process.env; // .env
-
-const removeSinnerMessage = REMOVE_SINNER_MESSAGE === 'true';
-const banSinner = BAN_SINNER === 'true';
+const { banSinner, guardChannelId, removeSinnerMessage, sinnerStickerName, token } = require('./config.json');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] });
 
@@ -17,7 +10,7 @@ client.on('ready', () => {
 client.on('messageCreate', async (message) => {
    if (message.author.bot) return;
 
-   if (message.channelId === GUARD_CHANNEL_ID) {
+   if (message.channelId === guardChannelId) {
       // console.log(message);
    
       let isValid = false;
@@ -29,7 +22,7 @@ client.on('messageCreate', async (message) => {
          stickerName = stick.name;
       }
    
-      isValid = stickerName === SINNER_STICKER_NAME;
+      isValid = stickerName === sinnerStickerName;
 
       if (!isValid) {
          const user = message.author;
@@ -52,4 +45,4 @@ However, I see everything, and I have seen, what you did there... As a result, y
    }
 });
 
-client.login(BOT_TOKEN);
+client.login(token);
