@@ -26,6 +26,8 @@ client.on('messageCreate', async (message) => {
 
       if (!isValid) {
          const user = message.author;
+         console.log(`${user.tag} sinned: ${message}`);
+
          user.send('Human! You will not get away with this! I see what you tried to do! You wanted to break the holy rule of #may-your-ls-be-many-and-bitches-few \
 However, I see everything, and I have seen, what you did there... As a result, your sinful message has been removed. May your L\'s be many and your bitches few...');
 
